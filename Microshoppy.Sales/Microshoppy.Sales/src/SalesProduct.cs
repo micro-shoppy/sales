@@ -10,6 +10,6 @@ namespace Microshoppy.Sales
 
 		public decimal NetPrice { get; set; }
 
-		public int TaxPercentage { get; set; }
+		public decimal TaxPercentage { get; set; }
 	}
 }

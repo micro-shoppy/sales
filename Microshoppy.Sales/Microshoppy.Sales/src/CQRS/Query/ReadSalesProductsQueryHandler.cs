@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microshoppy.Sales.src.Repositories;
+using Microshoppy.Sales.Repositories;
 
-namespace Microshoppy.Sales.src.CQRS.Query
+namespace Microshoppy.Sales.CQRS.Query
 {
 	public class ReadSalesProductsQueryHandler : Handler<ReadSalesProductsQuery, IEnumerable<SalesProduct>>
 	{

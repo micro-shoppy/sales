@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microshoppy.Sales.src.Repositories;
+using Microshoppy.Sales.Repositories;
 
-namespace Microshoppy.Sales.src.CQRS.Command
+namespace Microshoppy.Sales.CQRS.Command
 {
 	public class UpdateSalesProductCommandHandler : Handler<UpdateSalesProductCommand, Unit>
 	{

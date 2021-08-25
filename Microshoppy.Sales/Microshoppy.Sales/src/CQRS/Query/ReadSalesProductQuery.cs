@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace Microshoppy.Sales.src.CQRS.Query
+namespace Microshoppy.Sales.CQRS.Query
 {
 	public class ReadSalesProductQuery : IRequest<SalesProduct>
 	{

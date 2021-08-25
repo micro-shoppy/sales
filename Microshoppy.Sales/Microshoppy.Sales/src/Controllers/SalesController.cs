@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microshoppy.Sales.src.CQRS.Command;
-using Microshoppy.Sales.src.CQRS.Query;
+using Microshoppy.Sales.CQRS.Command;
+using Microshoppy.Sales.CQRS.Query;
 
 namespace Microshoppy.Sales.Controllers
 {

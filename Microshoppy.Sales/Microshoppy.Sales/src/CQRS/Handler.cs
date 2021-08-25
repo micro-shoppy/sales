@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using Microshoppy.Sales.src.Repositories;
+using Microshoppy.Sales.Repositories;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microshoppy.Sales.src.CQRS
+namespace Microshoppy.Sales.CQRS
 {
 	public abstract class Handler<TRequest, TResponse> : IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse>
 	{

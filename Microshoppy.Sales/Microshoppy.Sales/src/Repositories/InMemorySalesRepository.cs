@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microshoppy.Sales.src.Repositories
+namespace Microshoppy.Sales.Repositories
 {
 	public class InMemorySalesRepository : ISalesRepository
 	{
