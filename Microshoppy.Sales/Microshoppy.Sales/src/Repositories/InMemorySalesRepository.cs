@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Microshoppy.Sales.Repositories
 {
@@ -8,27 +9,27 @@ namespace Microshoppy.Sales.Repositories
 	{
 		private static readonly List<SalesProduct> _repo = new();
 
-		public SalesProduct CreateProduct(SalesProduct product)
+		public Task<SalesProduct> CreateProduct(SalesProduct product)
 		{
 			_repo.Add(product);
-			return product;
+			return Task.FromResult(product);
 		}
 
-		public SalesProduct ReadProduct(Guid productId)
+		public Task<SalesProduct> ReadProduct(Guid productId)
 		{
-			return _repo.Find(p => p.ProductId == productId);
+			return Task.FromResult(_repo.First(p => p.ProductId == productId));
 		}
 
-		public IEnumerable<SalesProduct> ReadProducts()
+		public Task<IEnumerable<SalesProduct>> ReadProducts()
 		{
-			return _repo.AsEnumerable();
+			return Task.FromResult(_repo.AsEnumerable());
 		}
 
-		public SalesProduct UpdateProduct(Guid productId, SalesProduct product)
+		public Task<SalesProduct> UpdateProduct(Guid productId, SalesProduct product)
 		{
 			_repo.Remove(_repo.Find(p => p.ProductId == productId));
 			_repo.Add(product);
-			return product;
+			return Task.FromResult(product);
 		}
 
 		public void DeleteProduct(Guid productId)
