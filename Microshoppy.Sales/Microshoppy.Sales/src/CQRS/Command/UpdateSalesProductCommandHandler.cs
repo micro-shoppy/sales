@@ -13,7 +13,7 @@ namespace Microshoppy.Sales.CQRS.Command
 
 		public override Task<Unit> Handle(UpdateSalesProductCommand request, CancellationToken cancellationToken)
 		{
-			_repo.UpdateProduct(request.ProductId, new SalesProduct()
+			Repo.UpdateProduct(request.ProductId, new SalesProduct()
 			{
 				ProductId = request.ProductId,
 				Cost = request.Cost,

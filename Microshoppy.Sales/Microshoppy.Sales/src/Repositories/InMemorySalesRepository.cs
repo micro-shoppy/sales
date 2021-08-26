@@ -7,34 +7,34 @@ namespace Microshoppy.Sales.Repositories
 {
 	public class InMemorySalesRepository : ISalesRepository
 	{
-		private static readonly List<SalesProduct> _repo = new();
+		private static readonly List<SalesProduct> Repo = new();
 
 		public Task<SalesProduct> CreateProduct(SalesProduct product)
 		{
-			_repo.Add(product);
+			Repo.Add(product);
 			return Task.FromResult(product);
 		}
 
 		public Task<SalesProduct> ReadProduct(Guid productId)
 		{
-			return Task.FromResult(_repo.First(p => p.ProductId == productId));
+			return Task.FromResult(Repo.First(p => p.ProductId == productId));
 		}
 
 		public Task<IEnumerable<SalesProduct>> ReadProducts()
 		{
-			return Task.FromResult(_repo.AsEnumerable());
+			return Task.FromResult(Repo.AsEnumerable());
 		}
 
 		public Task<SalesProduct> UpdateProduct(Guid productId, SalesProduct product)
 		{
-			_repo.Remove(_repo.Find(p => p.ProductId == productId));
-			_repo.Add(product);
+			Repo.Remove(Repo.Find(p => p.ProductId == productId));
+			Repo.Add(product);
 			return Task.FromResult(product);
 		}
 
 		public void DeleteProduct(Guid productId)
 		{
-			_repo.Remove(_repo.Find(p => p.ProductId == productId));
+			Repo.Remove(Repo.Find(p => p.ProductId == productId));
 		}
 	}
 }

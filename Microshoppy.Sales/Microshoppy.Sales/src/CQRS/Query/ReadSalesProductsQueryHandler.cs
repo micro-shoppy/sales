@@ -13,7 +13,7 @@ namespace Microshoppy.Sales.CQRS.Query
 
 		public override Task<IEnumerable<SalesProduct>> Handle(ReadSalesProductsQuery request, CancellationToken cancellationToken)
 		{
-			return _repo.ReadProducts();
+			return Repo.ReadProducts();
 		}
 	}
 }
