@@ -37,6 +37,7 @@ namespace Microshoppy.Sales
 			services.AddMassTransit(x =>
 			{
 				x.AddConsumer<ProductCreatedConsumer>();
+				x.AddConsumer<ProductRemovedConsumer>();
 				x.UsingRabbitMq((context, cfg) =>
 				{
 					cfg.Host(new Uri(rabbitOptions.Host));
