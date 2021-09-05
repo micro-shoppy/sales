@@ -1,3 +1,5 @@
+using System;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +32,18 @@ namespace Microshoppy.Sales
 			});
 			services.AddTransient<ISalesRepository, InMemorySalesRepository>();
 			services.AddMediatR(typeof(CreateSalesProductCommand));
+			var rabbitOptions = new RabbitMqOptions();
+			Configuration.GetSection("RabbitMq").Bind(rabbitOptions);
+			services.AddMassTransit(x =>
+			{
+				x.AddConsumer<ProductCreatedConsumer>();
+				x.UsingRabbitMq((context, cfg) =>
+				{
+					cfg.Host(new Uri(rabbitOptions.Host));
+					cfg.ConfigureEndpoints(context);
+				});
+			});
+			services.AddMassTransitHostedService();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
