@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microshoppy.Sales.Repositories;
@@ -15,7 +16,7 @@ namespace Microshoppy.Sales.CQRS.Command
 		{
 			Repo.CreateProduct(new SalesProduct()
 			{
-				ProductId = request.ProductId,
+				ProductId = Guid.NewGuid(),
 				NetPrice = request.NetPrice,
 				Cost = request.Cost,
 				TaxPercentage = request.TaxPercentage

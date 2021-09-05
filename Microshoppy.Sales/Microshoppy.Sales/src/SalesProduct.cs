@@ -6,10 +6,10 @@ namespace Microshoppy.Sales
 	{ 
 		public Guid ProductId { get; set; }
 
-		public decimal Cost { get; set; }
+		public double Cost { get; set; }
 
-		public decimal NetPrice { get; set; }
+		public double NetPrice { get; set; }
 
-		public decimal TaxPercentage { get; set; }
+		public double TaxPercentage { get; set; }
 	}
 }

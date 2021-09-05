@@ -41,30 +41,19 @@ namespace Microshoppy.Sales.Controllers
 		}
 
 		[HttpPost]
-		public void CreateProduct(SalesProduct product)
+		public void CreateProduct(CreateSalesProductCommand command)
 		{
-			_logger.Info($"Creating new product: {product}");
-			_mediator.Send(new CreateSalesProductCommand()
-			{
-				ProductId = Guid.NewGuid(),
-				Cost = product.Cost,
-				NetPrice = product.NetPrice,
-				TaxPercentage = product.TaxPercentage
-			});
+			_logger.Info($"Creating new product...");
+			_mediator.Send(command);
 		}
 
 		[HttpPost]
 		[Route("{productId}")]
-		public void UpdateProduct(Guid productId, SalesProduct product)
+		public void UpdateProduct(Guid productId, UpdateSalesProductCommand command)
 		{
-			_logger.Info($"Updating product with ID {productId} to {product}");
-			_mediator.Send(new UpdateSalesProductCommand()
-			{
-				ProductId = productId,
-				Cost = product.Cost,
-				NetPrice = product.NetPrice,
-				TaxPercentage = product.TaxPercentage
-			});
+			_logger.Info($"Updating product with ID {productId} to {command}");
+			command.ProductId = productId;
+			_mediator.Send(command);
 		}
 
 		[HttpDelete]
