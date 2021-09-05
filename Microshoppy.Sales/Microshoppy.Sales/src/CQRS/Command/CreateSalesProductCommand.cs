@@ -5,10 +5,10 @@ namespace Microshoppy.Sales.CQRS.Command
 {
 	public class CreateSalesProductCommand : IRequest<Unit>
 	{
-		public double Cost { get; set; }
+		public decimal Cost { get; set; }
 
-		public double NetPrice { get; set; }
+		public decimal NetPrice { get; set; }
 
-		public double TaxPercentage { get; set; }
+		public decimal TaxPercentage { get; set; }
 	}
 }

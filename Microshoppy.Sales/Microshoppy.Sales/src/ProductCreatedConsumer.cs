@@ -11,7 +11,7 @@ namespace Microshoppy.Sales
 {
 	public class ProductCreatedConsumer : IConsumer<IProductCreated>
 	{
-		private ISalesRepository _repo;
+		private readonly ISalesRepository _repo;
 		private ILogger<ProductCreatedConsumer> _logger;
 
 		public ProductCreatedConsumer(ISalesRepository repo, ILogger<ProductCreatedConsumer> logger)
@@ -21,11 +21,10 @@ namespace Microshoppy.Sales
 		}
 		public Task Consume(ConsumeContext<IProductCreated> context)
 		{
-			_logger.Log(LogLevel.Information, "Message consumed");
-			_repo.CreateProduct(new SalesProduct()
+			_repo.CreateProduct(new SalesProduct
 			{
 				ProductId = context.Message.ProductId,
-				Cost = 1,
+				Cost = context.Message.Cost,
 				NetPrice = context.Message.NetPrice,
 				TaxPercentage = context.Message.TaxPercentage
 			});
