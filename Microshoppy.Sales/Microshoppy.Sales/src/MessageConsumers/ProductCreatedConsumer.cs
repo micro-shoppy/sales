@@ -7,7 +7,7 @@ using MicroShoppy.Contract.Events;
 using Microshoppy.Sales.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Microshoppy.Sales
+namespace Microshoppy.Sales.MessageConsumers
 {
 	public class ProductCreatedConsumer : IConsumer<IProductCreated>
 	{

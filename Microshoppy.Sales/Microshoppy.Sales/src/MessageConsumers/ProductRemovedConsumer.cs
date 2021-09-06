@@ -4,7 +4,7 @@ using Microshoppy.Sales.Repositories;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Microshoppy.Sales
+namespace Microshoppy.Sales.MessageConsumers
 {
 	public class ProductRemovedConsumer : IConsumer<IProductRemoved>
 	{

@@ -10,5 +10,6 @@ namespace Microshoppy.Sales.Entities
 		public Guid OrderId { get; set; }
 		public Guid UserId { get; set; }
 		public Dictionary<Guid, int> OrderedProducts { get; set; }
+		public Status Status { get; set; }
 	}
 }

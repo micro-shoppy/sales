@@ -21,7 +21,8 @@ namespace Microshoppy.Sales.CQRS.Orders.Command
 			{
 				OrderId = request.OrderId,
 				OrderedProducts = request.OrderedProducts,
-				UserId = request.UserId
+				UserId = request.UserId,
+				Status = request.Status
 			});
 			return Task.FromResult(Unit.Value);
 		}
