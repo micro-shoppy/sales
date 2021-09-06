@@ -3,17 +3,17 @@ using System.Threading.Tasks;
 using MediatR;
 using Microshoppy.Sales.Repositories;
 
-namespace Microshoppy.Sales.CQRS.Command
+namespace Microshoppy.Sales.CQRS.SalesProducts.Commands
 {
-	public class DeleteSalesProductCommandHandler : Handler<DeleteSalesProductCommand, Unit>
+	public class DeleteSalesProductCommandHandler : SalesHandler<DeleteSalesProductCommand, Unit>
 	{
-		public DeleteSalesProductCommandHandler(ISalesRepository repo) : base(repo)
+		public DeleteSalesProductCommandHandler(IRepository<SalesProduct> repo) : base(repo)
 		{
 		}
 
 		public override Task<Unit> Handle(DeleteSalesProductCommand request, CancellationToken cancellationToken)
 		{
-			Repo.DeleteProduct(request.ProductId);
+			Repo.DeleteItem(request.ProductId);
 			return Task.FromResult(Unit.Value);
 		}
 	}

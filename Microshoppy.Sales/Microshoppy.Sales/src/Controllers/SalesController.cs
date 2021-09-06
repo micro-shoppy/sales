@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microshoppy.Sales.CQRS.Command;
-using Microshoppy.Sales.CQRS.Query;
+using Microshoppy.Sales.CQRS.SalesProducts.Commands;
+using Microshoppy.Sales.CQRS.SalesProducts.Queries;
 
 namespace Microshoppy.Sales.Controllers
 {
@@ -65,14 +65,6 @@ namespace Microshoppy.Sales.Controllers
 			{
 				ProductId = productId
 			});
-		}
-	}
-
-	public static class ProdLogger
-	{
-		public static void Info(this ILogger logger, string info)
-		{
-			logger.Log(LogLevel.Information, $"[INFO] {info}");
 		}
 	}
 
