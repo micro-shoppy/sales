@@ -7,7 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MediatR;
-using Microshoppy.Sales.CQRS.Command;
+using Microshoppy.Sales.CQRS.SalesProducts.Commands;
+using Microshoppy.Sales.Entities;
 using Microshoppy.Sales.Repositories;
 
 namespace Microshoppy.Sales
@@ -30,7 +31,8 @@ namespace Microshoppy.Sales
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Microshoppy.Sales", Version = "v1" });
 			});
-			services.AddTransient<ISalesRepository, InMemorySalesRepository>();
+			services.AddTransient<IRepository<SalesProduct>, InMemorySalesRepository>();
+			services.AddTransient<IRepository<Order>, InMemoryOrdersRepository>();
 			services.AddMediatR(typeof(CreateSalesProductCommand));
 			var rabbitOptions = new RabbitMqOptions();
 			Configuration.GetSection("RabbitMq").Bind(rabbitOptions);

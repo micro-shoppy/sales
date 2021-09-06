@@ -3,17 +3,17 @@ using System.Threading.Tasks;
 using MediatR;
 using Microshoppy.Sales.Repositories;
 
-namespace Microshoppy.Sales.CQRS.Command
+namespace Microshoppy.Sales.CQRS.SalesProducts.Commands
 {
-	public class UpdateSalesProductCommandHandler : Handler<UpdateSalesProductCommand, Unit>
+	public class UpdateSalesProductCommandHandler : SalesHandler<UpdateSalesProductCommand, Unit>
 	{
-		public UpdateSalesProductCommandHandler(ISalesRepository repo) : base(repo)
+		public UpdateSalesProductCommandHandler(IRepository<SalesProduct> repo) : base(repo)
 		{
 		}
 
 		public override Task<Unit> Handle(UpdateSalesProductCommand request, CancellationToken cancellationToken)
 		{
-			Repo.UpdateProduct(request.ProductId, new SalesProduct()
+			Repo.UpdateItem(request.ProductId, new SalesProduct()
 			{
 				ProductId = request.ProductId,
 				Cost = request.Cost,

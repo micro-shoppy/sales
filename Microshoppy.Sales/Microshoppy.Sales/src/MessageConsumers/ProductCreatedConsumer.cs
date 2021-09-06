@@ -7,21 +7,21 @@ using MicroShoppy.Contract.Events;
 using Microshoppy.Sales.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Microshoppy.Sales
+namespace Microshoppy.Sales.MessageConsumers
 {
 	public class ProductCreatedConsumer : IConsumer<IProductCreated>
 	{
-		private readonly ISalesRepository _repo;
+		private readonly IRepository<SalesProduct> _repo;
 		private ILogger<ProductCreatedConsumer> _logger;
 
-		public ProductCreatedConsumer(ISalesRepository repo, ILogger<ProductCreatedConsumer> logger)
+		public ProductCreatedConsumer(IRepository<SalesProduct> repo, ILogger<ProductCreatedConsumer> logger)
 		{
 			_repo = repo;
 			_logger = logger;
 		}
 		public Task Consume(ConsumeContext<IProductCreated> context)
 		{
-			_repo.CreateProduct(new SalesProduct
+			_repo.CreateItem(new SalesProduct
 			{
 				ProductId = context.Message.ProductId,
 				Cost = context.Message.Cost,

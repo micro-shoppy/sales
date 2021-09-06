@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace Microshoppy.Sales.CQRS.Command
+namespace Microshoppy.Sales.CQRS.SalesProducts.Commands
 {
 	public class DeleteSalesProductCommand : IRequest<Unit>
 	{
