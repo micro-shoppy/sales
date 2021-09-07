@@ -11,6 +11,9 @@ using Microshoppy.Sales.CQRS.Orders.Queries;
 using Microshoppy.Sales.CQRS.SalesProducts.Commands;
 using Microshoppy.Sales.CQRS.SalesProducts.Queries;
 using Microshoppy.Sales.Entities;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Microshoppy.Sales.Controllers
 {
@@ -28,6 +31,8 @@ namespace Microshoppy.Sales.Controllers
 		}
 
 		[HttpGet]
+		[Route("all")]
+		[Authorize(Roles="Admin")]
 		public async Task<IEnumerable<Order>> ReadAllOrders()
 		{
 			_logger.Info("Reading all products");
@@ -35,6 +40,16 @@ namespace Microshoppy.Sales.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
+		public async Task<IEnumerable<Order>> ReadUserOrders()
+		{
+			var userid = Guid.Parse(HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+			_logger.Info("Reading all user products");
+			return await _mediator.Send(new ReadOrdersPerUserQuery{UserId = userid });
+		}
+
+		[HttpGet]
+		[Authorize]
 		[Route("{orderId}")]
 		public async Task<Order> ReadOrder(Guid orderId)
 		{
@@ -46,6 +61,7 @@ namespace Microshoppy.Sales.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public void CreateOrder(CreateOrderCommand command)
 		{
 			_logger.Info("Creating new product...");
