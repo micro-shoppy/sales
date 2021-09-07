@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using MediatR;
 using Microshoppy.Sales.CQRS.SalesProducts.Commands;
 using Microshoppy.Sales.Entities;
+using Microshoppy.Sales.MessageConsumers;
 using Microshoppy.Sales.Repositories;
 
 namespace Microshoppy.Sales
@@ -40,6 +41,7 @@ namespace Microshoppy.Sales
 			{
 				x.AddConsumer<ProductCreatedConsumer>();
 				x.AddConsumer<ProductRemovedConsumer>();
+				x.AddConsumer<OrderBilledConsumer>();
 				x.UsingRabbitMq((context, cfg) =>
 				{
 					cfg.Host(new Uri(rabbitOptions.Host));
