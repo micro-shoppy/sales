@@ -1,4 +1,6 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +13,8 @@ using Microshoppy.Sales.CQRS.SalesProducts.Commands;
 using Microshoppy.Sales.Entities;
 using Microshoppy.Sales.MessageConsumers;
 using Microshoppy.Sales.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Microshoppy.Sales
 {
@@ -35,6 +39,8 @@ namespace Microshoppy.Sales
 			services.AddTransient<IRepository<SalesProduct>, InMemorySalesRepository>();
 			services.AddTransient<IRepository<Order>, InMemoryOrdersRepository>();
 			services.AddMediatR(typeof(CreateSalesProductCommand));
+
+			// Add RabbitMq/MassTransit 
 			var rabbitOptions = new RabbitMqOptions();
 			Configuration.GetSection("RabbitMq").Bind(rabbitOptions);
 			services.AddMassTransit(x =>
@@ -49,6 +55,33 @@ namespace Microshoppy.Sales
 				});
 			});
 			services.AddMassTransitHostedService();
+
+			// Add Auth
+			var authSection = Configuration.GetSection("AuthOptions");
+			var authOptions = authSection.Get<AuthOptions>();
+			services.Configure<AuthOptions>(authSection);
+			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+			services.AddAuthentication(options =>
+				{
+					options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+					options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+					options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				})
+				.AddJwtBearer(jwt =>
+				{
+					var key = Encoding.ASCII.GetBytes(authOptions.Key);
+
+					jwt.SaveToken = true;
+					jwt.TokenValidationParameters = new TokenValidationParameters
+					{
+						ValidateIssuerSigningKey = true,
+						IssuerSigningKey = new SymmetricSecurityKey(key),
+						ValidateIssuer = false,
+						ValidateAudience = false,
+						RequireExpirationTime = true,
+						ValidateLifetime = true
+					};
+				});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
